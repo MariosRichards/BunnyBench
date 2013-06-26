@@ -5,6 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 <script src="Stats.js"></script> 
 <script> 
+
+reqFrame =window.requestAnimationFrame ||
+		  window.webkitRequestAnimationFrame ||
+		  window.mozRequestAnimationFrame ||
+		  window.oRequestAnimationFrame ||
+		  window.msRequestAnimationFrame ||
+		  function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element){
+			window.setTimeout(callback, 1000 / 60);
+			};
+
+
  
 function Bunny(){
 	this.speedX = 0;
@@ -17,7 +28,7 @@ var	snapping = false,
 	bcolor = "rgba(255, 255, 255, 1)";
 	
 function setup(){
-	var numBunnies = 3000,
+	var numBunnies = 3200,
 	 	gravity = 3,
 		bunnies = [],
 		maxX = 1600,
@@ -85,10 +96,15 @@ function render() {
 		else 
 			c.drawImage(img,  bunny.x, bunny.y); 
  	}
+	
+	reqFrame(render); //, now
+	
 }
   
-var loop = setInterval(function(){render();}, 1000/60);
- 
+//var loop = setInterval(function(){render();}, 1000/60);
+
+
+	reqFrame(render); //, now
 }
 
 function toggleSnapping(){
